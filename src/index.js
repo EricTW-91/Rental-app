@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+// import './index.css';
+import AppRouter from './router/AppRouter';
 import reportWebVitals from './reportWebVitals';
+import { PropertiesProvider } from './context/Properties';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <PropertiesProvider>
+      <AppRouter />
+    </PropertiesProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
