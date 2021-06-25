@@ -14,11 +14,12 @@ const DEFAULT_SEARCH_PARAMS = {
   sortOrder: 'PRICE',
   locale: 'en_CA',
   currency: 'CAD'
-}
+};
+
 const API = {
   BASEURI: "https://hotels4.p.rapidapi.com",
   KEY: process.env.REACT_APP_HOTELS_API_KEY
-}
+};
 
 const PropertiesProvider = ({ children }) => {
   const [searchResult, setSearchResult] = useState(null);
