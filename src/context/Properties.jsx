@@ -1,24 +1,28 @@
 import React, { createContext, useContext, useEffect, useState, useReducer } from 'react'
 import axios from 'axios';
 import SearchReducer from '../reducer/SearchReducer';
+import moment from 'moment';
 
 const PropertiesContext = createContext();
-
-const DEFAULT_SEARCH_PARAMS = {
-  adults1: '1',
-  pageNumber: '1',
-  destinationId: '169712',
-  pageSize: '25',
-  checkOut: '2021-07-15',
-  checkIn: '2021-07-08', // Change here to string gotten by Date()
-  sortOrder: 'PRICE',
-  locale: 'en_CA',
-  currency: 'CAD'
-};
 
 const API = {
   BASEURI: "https://hotels4.p.rapidapi.com",
   KEY: process.env.REACT_APP_HOTELS_API_KEY
+};
+
+const CHECK_IN_DEFAULT = moment().format('YYYY-MM-DD'); // today
+const CHECK_OUT_DEFAULT = moment().add(3, 'days').format('YYYY-MM-DD'); // 3 days later
+
+const DEFAULT_SEARCH_PARAMS = {
+  adults1: '1',
+  pageNumber: '1',
+  destinationId: '169712', // Vancouver
+  pageSize: '25',
+  checkIn: CHECK_IN_DEFAULT, // Change here to string gotten by Date() Later, we can set date depending on the time user view the site
+  checkOut: CHECK_OUT_DEFAULT, // plus 3 days
+  sortOrder: 'PRICE',
+  locale: 'en_CA',
+  currency: 'CAD'
 };
 
 const PropertiesProvider = ({ children }) => {
