@@ -3,9 +3,10 @@ import { Card } from 'react-bootstrap';
 
 const PropertyCard = (props) => {
     return (
-        <Card>
-            <Card.Title>{ props.data.name}</Card.Title>
-        </Card>
+        <img
+            src={props.data.optimizedThumbUrls.srpDesktop}
+            style={{width: '30vw'}}
+        />
      );
 }
  

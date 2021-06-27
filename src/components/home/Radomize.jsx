@@ -23,16 +23,10 @@ const Randomize = () => {
     useEffect(() => {
         if (searchResult) {
             let arr = new Array
-            searchResult.then(data => {
-                randomNum(data).map(num => {
-                    arr.push(data[num])
-                })
-                console.log(arr)
+            randomNum(searchResult).map(num => {
+                arr.push(searchResult[num])
             })
-    
             setPropertiesArr(arr)
-            // console.log(arr)
-            
         }
     }, [searchResult])
 
