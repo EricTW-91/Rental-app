@@ -71,13 +71,13 @@ const PropertiesProvider = ({ children }) => {
           };
           const res = await axios.request(searchOptions);
           console.log(res.data.data.body.searchResults.results);
-          return res.data.data.body.searchResults.results;
+          setSearchResult(res.data.data.body.searchResults.results);
         } catch(e) {
           console.error(e);
         }
       }
     };
-    searchParams && setSearchResult(fetchSearchResult());
+    searchParams && fetchSearchResult();
   }, [searchParams])
   
   return (
