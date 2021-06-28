@@ -5,6 +5,7 @@ import Home from '../components/home/Home';
 import Detail from '../components/detail/Detail';
 import Checkout from '../components/checkout/CheckoutStripe';
 import Wrapper from '../components/wrapper/Wrapper';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AppRouter = () => (
   <BrowserRouter>

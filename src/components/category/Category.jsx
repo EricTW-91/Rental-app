@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Category = () => {
+const Category = (props) => {
   return (
     <div>
-      Category
+      {props.match.params.sort}
     </div>
   )
 }
