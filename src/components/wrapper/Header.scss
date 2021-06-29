@@ -1,0 +1,25 @@
+.header-form {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 12px 0;
+	// width: 75%;
+
+	.input-item {
+		margin-right: 10px;
+
+		.header-input {
+			height: 50px;
+			font-size: 18px;
+			padding: 12px;
+		}
+	}
+	#number-of-people {
+		width: 180px;
+	}
+	.primary-button {
+		height: 50px;
+		font-size: 18px;
+		// padding: 12px;
+	}
+}
