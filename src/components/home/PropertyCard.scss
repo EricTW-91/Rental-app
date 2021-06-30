@@ -6,7 +6,9 @@
     grid-template-rows: 1fr 2fr 1fr;
     grid-gap: 15px;
     height: 30vh;
+    color: black;
     // overflow: hidden;
+    column-gap: 30px;
     img {
       grid-row: 1/4;
       align-self: center;
@@ -22,6 +24,9 @@
       overflow: hidden;
       text-overflow: ellipsis;
       margin: 0;
+    }
+    .price {
+      justify-self: end;
     }
   }
 }

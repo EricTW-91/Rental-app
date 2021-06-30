@@ -14,8 +14,8 @@ const PropertyCard = (props) => {
                     />
                     <h3>{ props.data.name }</h3>
                     <span className='locality'>{ props.data.address.locality }</span>
-                    <span>{ '⭐ ' + props.data.starRating }</span>
-                    <span>${ props.data.ratePlan.price.exactCurrent }</span>
+                    <span className='starRating'>{ '⭐ ' + props.data.starRating }</span>
+                    <span className='price'>${ props.data.ratePlan.price.exactCurrent }</span>
                 </div>
 
 
