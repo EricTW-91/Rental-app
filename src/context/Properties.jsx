@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState, useReducer } from 'react'
 import axios from 'axios';
 import SearchReducer from '../reducer/SearchReducer';
+import CacheReducer from '../reducer/CacheReducer';
 import moment from 'moment';
 
 const PropertiesContext = createContext();
@@ -22,34 +23,55 @@ const DEFAULT_SEARCH_PARAMS = {
   checkOut: CHECK_OUT_DEFAULT, // plus 3 days
   sortOrder: 'PRICE',
   locale: 'en_CA',
-  currency: 'CAD'
+  currency: 'CAD',
+};
+
+const DEFAULT_CACHE = {
+  vancouver: '169712'
 };
 
 const PropertiesProvider = ({ children }) => {
   const [searchResult, setSearchResult] = useState(null);
   const [searchParams, dispatchSearchParams] = useReducer(SearchReducer, DEFAULT_SEARCH_PARAMS);
   const [cityName, setCityName] = useState(null);
-
+  const [cityNameCache, dispatchCityNameCache] = useReducer(CacheReducer, DEFAULT_CACHE);
+  const [gotDestinationId, setGotDestinationId] = useState(true);
+  
+  const setDestinationId = (cityId) => {
+    dispatchSearchParams({
+      type: 'SET_DESTINATION_ID',
+      cityId
+    });
+    setGotDestinationId(true);
+    setCityName(null); // to get city name when user input the same one as previous one
+  };
+  
   useEffect(() => {
     const fetchLocation = async () => {
       if(cityName) {
-        try {
-          const locationOptions = {
-            method: 'GET',
-            url: `${API.BASEURI}/locations/search`,
-            params: { query: cityName, locale: 'en_CA' },
-            headers: {
-              'x-rapidapi-key': API.KEY,
-              'x-rapidapi-host': 'hotels4.p.rapidapi.com'
-            }
-          };
-          const location = await axios.request(locationOptions);
-          dispatchSearchParams({
-            type: 'SET_DESTINATION_ID',
-            payload: location.data.suggestions[0].entities[0].destinationId
-          });
-        } catch(e) {
-          console.error(e);
+        if(Object.keys(cityNameCache).includes(cityName)) { // if user have searched input city before
+          setDestinationId(cityNameCache[cityName]);
+        } else {
+          try {
+            const locationOptions = {
+              method: 'GET',
+              url: `${API.BASEURI}/locations/search`,
+              params: { query: cityName, locale: 'en_CA' },
+              headers: {
+                'x-rapidapi-key': API.KEY,
+                'x-rapidapi-host': 'hotels4.p.rapidapi.com'
+              }
+            };
+            const location = await axios.request(locationOptions);
+            const cityId = location.data.suggestions[0].entities[0].destinationId;
+            dispatchCityNameCache({
+              type: 'ADD_CACHE',
+              cache: { [cityName]: cityId }
+            });
+            setDestinationId(cityId);
+          } catch(e) {
+            console.error(e);
+          }
         }
       }
     };
@@ -58,7 +80,7 @@ const PropertiesProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchSearchResult = async () => {
-      if (searchParams) {
+      if (searchParams && gotDestinationId) {
         try {
           const searchOptions = {
             method: 'GET',
@@ -72,16 +94,24 @@ const PropertiesProvider = ({ children }) => {
           const res = await axios.request(searchOptions);
           console.log(res.data.data.body.searchResults.results);
           setSearchResult(res.data.data.body.searchResults.results);
+          setGotDestinationId(false); // this function can't be executed with getting destination ID.
         } catch(e) {
           console.error(e);
         }
       }
     };
     searchParams && fetchSearchResult();
-  }, [searchParams])
+  }, [searchParams, gotDestinationId])
   
   return (
-    <PropertiesContext.Provider value={{ searchResult, setCityName, dispatchSearchParams }}>
+    <PropertiesContext.Provider
+      value={{
+        searchResult,
+        setCityName,
+        dispatchSearchParams,
+        searchParams
+      }}
+    >
       { children }
     </PropertiesContext.Provider>
   )

@@ -3,7 +3,12 @@ const SearchReducer = (state, action) => {
     case 'SET_DESTINATION_ID':
       return {
         ...state,
-        destinationId: action.payload
+        destinationId: action.cityId,
+      }
+    case 'UPDATE_SEARCH_PARAMS':
+      return {
+        ...state,
+        ...action.uploads,
       }
     default:
       return state;
