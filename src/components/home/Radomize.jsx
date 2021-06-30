@@ -21,7 +21,7 @@ const Randomize = () => {
     }
 
     useEffect(() => {
-        if (searchResult) {
+        if (searchResult && searchResult.length !== 0) {
             let arr = new Array
             randomNum(searchResult).map(num => {
                 arr.push(searchResult[num])
