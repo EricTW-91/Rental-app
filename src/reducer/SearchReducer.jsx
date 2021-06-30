@@ -5,6 +5,11 @@ const SearchReducer = (state, action) => {
         ...state,
         destinationId: action.payload
       }
+    case 'UPDATE_SEARCH_PARAMS':
+      return {
+        ...state,
+        ...action.payload
+      }
     default:
       return state;
   }

@@ -7,17 +7,21 @@ import moment from 'moment';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
+const CHECK_IN_DEFAULT = moment();
+const CHECK_OUT_DEFAULT = moment().add(3, 'days');
+
 const Header = () => {
-  const { setCityName } = usePropertiesContext();
+  const { setCityName, dispatchSearchParams } = usePropertiesContext();
   const [city, setCity] = useState('');
-  const [person, setPerson] = useState('');
-  const [startDate, setStartDate] = useState(moment());
-  const [endDate, setEndDate] = useState(moment().add(3, 'days'));
+  const [adults1, setAdults1] = useState('');
+  const [startDate, setCheckIn] = useState(CHECK_IN_DEFAULT);
+  const [endDate, setCheckOut] = useState(CHECK_OUT_DEFAULT);
   const [calendarFocused, setCalenderFocused] = useState(null);
+  // const [error, setError] = 
 
   const onDatesChange = ({ startDate, endDate }) => {
-    setStartDate(startDate);
-    setEndDate(endDate);
+    setCheckIn(startDate);
+    setCheckOut(endDate);
   }
 
   useEffect(() => {
@@ -28,8 +32,19 @@ const Header = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (city.length) {
-      setCityName(city);
+      dispatchSearchParams({
+        type: 'UPDATE_SEARCH_PARAMS',
+        payload: {
+          adults1,
+          checkIn: moment(startDate.valueOf()).format('YYYY-MM-DD'),
+          checkOut: moment(endDate.valueOf()).format('YYYY-MM-DD')
+        }
+      })
+      setCityName(city.toLowerCase());
       setCity('');
+      setCheckIn(CHECK_IN_DEFAULT);
+      setCheckOut(CHECK_OUT_DEFAULT);
+      setAdults1('');
     }
   }
   
@@ -53,7 +68,7 @@ const Header = () => {
         />
       </div>
       <div className="input-item">
-        <input type="text" value={person} onChange={e => setPerson(e.target.value)} placeholder="Number of people" className="header-input" id="number-of-people" />
+        <input type="text" value={adults1} onChange={e => setAdults1(e.target.value)} placeholder="Number of people" className="header-input" id="number-of-people" />
       </div>
       <Button variant="primary" onClick={onSubmit} className="primary-button">Search</Button>
     </div>
