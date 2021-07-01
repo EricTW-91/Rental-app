@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { Card } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import './PropertyCard.scss';
 
 const PropertyCard = (props) => {
     return (
-        <Link to={`/detail/${props.data.id}`}>
-            <img
-                src={props.data.optimizedThumbUrls.srpDesktop}
-                style={{width: '30vw'}}
-            />
+        <>
+            <Link className='propertyLink' to={`/detail/${props.data.id}`} >
+                <div className='showProperty_home'>
+                    <Image
+                        src={props.data.optimizedThumbUrls.srpDesktop}
+                        rounded
+                    />
+                    <h3>{ props.data.name }</h3>
+                    <span className='locality'>{ props.data.address.locality }</span>
+                    <span className='starRating'>{ '⭐ ' + props.data.starRating }</span>
+                    <span className='price'>${ props.data.ratePlan.price.exactCurrent }</span>
+                </div>
 
-        </Link>
+
+            </Link>
+            <hr />
+        </>
      );
 }
  

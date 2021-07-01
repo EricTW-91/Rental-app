@@ -1,0 +1,32 @@
+.propertyLink {
+  text-decoration: none;
+  .showProperty_home {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: 1fr 2fr 1fr;
+    grid-gap: 15px;
+    height: 30vh;
+    color: black;
+    // overflow: hidden;
+    column-gap: 30px;
+    img {
+      grid-row: 1/4;
+      align-self: center;
+      height: 100%;
+      //   width: 100%;
+    }
+    h3,
+    .locality {
+      grid-column: 2/4;
+    }
+    h3 {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin: 0;
+    }
+    .price {
+      justify-self: end;
+    }
+  }
+}

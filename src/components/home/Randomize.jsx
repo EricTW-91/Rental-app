@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import usePropertiesContext from '../../context/Properties';
 import PropertyCard from './PropertyCard';
+import { Spinner } from 'react-bootstrap'
 
 const Randomize = () => {
     const { searchResult } = usePropertiesContext();
@@ -31,11 +32,31 @@ const Randomize = () => {
     }, [searchResult])
 
     return propertiesArr.length === 0 ? (
-        <div>loading</div>
+        <div
+            className='loading d-flex justify-content-center'
+            style={{margin:'20vh auto'}}
+        >
+            <Spinner animation='border' />
+        </div>
     ) : (
-        propertiesArr.map(obj => {
-            return <PropertyCard key={obj.id} data={obj} />
-        })
+            <div
+                className='randomProperties'
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: '90vw',
+                    // gridTemplateColumns: 'repeat(3, 1fr)',
+                    // gridGap: '20px',
+                    // placeItems: 'center',
+                    margin: '10vh auto'
+
+                }}
+            >
+            {propertiesArr.map(obj => {
+                return <PropertyCard key={obj.id} data={obj} />
+            })}
+        </div>
+        
     )
         
 }

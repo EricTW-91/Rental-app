@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Category from '../components/category/Category';
 import Home from '../components/home/Home';
 import Detail from '../components/detail/Detail';
-import Checkout from '../components/checkout/CheckoutStripe';
+import Checkout from '../components/checkout/Checkout';
 import Wrapper from '../components/wrapper/Wrapper';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
