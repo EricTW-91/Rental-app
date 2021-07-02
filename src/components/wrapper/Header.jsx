@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import usePropertiesContext from '../../context/Properties';
 import Button from 'react-bootstrap/Button';
 import './Header.scss';
@@ -13,13 +14,18 @@ const CHECK_IN_DEFAULT = moment();
 const CHECK_OUT_DEFAULT = moment().add(3, 'days');
 
 const Header = () => {
-  const { setCityName, dispatchSearchParams, searchParams } = usePropertiesContext();
+  const { cityName, setCityName, dispatchSearchParams, searchParams } = usePropertiesContext();
   const [city, setCity] = useState('');
   const [adults1, setAdults1] = useState('');
   const [startDate, setCheckIn] = useState(CHECK_IN_DEFAULT);
   const [endDate, setCheckOut] = useState(CHECK_OUT_DEFAULT);
   const [calendarFocused, setCalenderFocused] = useState(null);
+  const history = useHistory();
   // const [error, setError] = 
+
+  useEffect(() => {
+    cityName && setCity(cityName);
+  }, [cityName]);
 
   const onDatesChange = ({ startDate, endDate }) => {
     setCheckIn(startDate);
@@ -38,18 +44,24 @@ const Header = () => {
         },
         oldDestinationId: searchParams.destinationId
       })
-      setCityName(city.toLowerCase());
+      // setCityName(city.toLowerCase());
+      history.push(`/category/${city.toLowerCase()}`);
       // setCity('');
       // setCheckIn(CHECK_IN_DEFAULT);
       // setCheckOut(CHECK_OUT_DEFAULT);
       // setAdults1('');
+      
     }
   }
   
   return (
     <div className="header">
       <div className="header-wrapper">
-        <div>Logo</div>
+        <div>
+          <Link to="/" className="logo">
+            Logo
+          </Link>
+        </div>
         <div className="header-form">
           <div className="input-item">
             <input type="text" value={city} onChange={e => setCity(e.target.value)} placeholder="Location" className="header-input" />
