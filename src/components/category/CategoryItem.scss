@@ -1,0 +1,33 @@
+.property-block {
+	border: 1px solid gray;
+	border-radius: 0px;
+	width: 49%;
+	padding: 16px;
+	margin: 16px 0;
+
+	.property-wrapper {
+		display: flex;
+		align-items: flex-start;
+		justify-content: left;
+		color: black;
+		text-decoration: none;
+
+		.property-detail {
+			margin-left: 32px;
+			width: 100%;
+			height: 100%;
+			position: relative;
+
+			.property-name {
+				font-size: 16px;
+			}
+			.starRating-price {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				// position: absolute;
+				// bottom: 0;
+			}
+		}
+	}
+}

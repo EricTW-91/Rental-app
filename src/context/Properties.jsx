@@ -107,6 +107,7 @@ const PropertiesProvider = ({ children }) => {
     <PropertiesContext.Provider
       value={{
         searchResult,
+        cityName,
         setCityName,
         dispatchSearchParams,
         searchParams
