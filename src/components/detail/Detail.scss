@@ -1,0 +1,11 @@
+.detail-wrapper {
+	max-width: 1000px;
+	margin: 30px auto;
+	position: relative;
+
+	.detail-information {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+	}
+}

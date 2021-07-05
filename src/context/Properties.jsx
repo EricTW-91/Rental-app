@@ -4,6 +4,7 @@ import SearchReducer from '../reducer/SearchReducer';
 import CacheReducer from '../reducer/CacheReducer';
 import moment from 'moment';
 import CheckoutReducer from '../reducer/CheckoutReducer';
+import DetailReducer from '../reducer/DetailReducer';
 
 const PropertiesContext = createContext();
 
@@ -45,7 +46,9 @@ const PropertiesProvider = ({ children }) => {
   const [cityNameCache, dispatchCityNameCache] = useReducer(CacheReducer, DEFAULT_CACHE);
   const [gotDestinationId, setGotDestinationId] = useState(true);
   const [checkout, dispatchCheckout] = useReducer(CheckoutReducer, DEFAULT_CHECKOUT);
-  
+  const [hotelId, setHotelId] = useState(null);
+  const [detail, dispatchDetail] = useReducer(DetailReducer, null);
+
   const setDestinationId = (cityId) => {
     dispatchSearchParams({
       type: 'SET_DESTINATION_ID',
@@ -111,6 +114,40 @@ const PropertiesProvider = ({ children }) => {
     };
     searchParams && fetchSearchResult();
   }, [searchParams, gotDestinationId])
+
+  useEffect(() => {
+    const fetchDetailInfo = async () => {
+      if (hotelId) {
+        try {
+          const detailOptions = {
+            method: 'GET',
+            url: `${API.BASEURI}/properties/get-details`,
+            params: {
+              id: hotelId,
+              checkIn: searchParams.checkIn,
+              checkOut: searchParams.checkOut,
+              currency: searchParams.currency,
+              locale: searchParams.locale,
+              adults1: searchParams.adults1
+            },
+            headers: {
+              'x-rapidapi-key': API.KEY,
+              'x-rapidapi-host': 'hotels4.p.rapidapi.com'
+            }
+          };
+          const res = await axios.request(detailOptions);
+          dispatchDetail({
+            type: "SET_DETAIL",
+            payload: res.data
+          });
+          console.log(res.data);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    };
+    fetchDetailInfo();
+  }, [hotelId]);
   
   return (
     <PropertiesContext.Provider
@@ -121,7 +158,9 @@ const PropertiesProvider = ({ children }) => {
         dispatchSearchParams,
         searchParams,
         checkout,
-        dispatchCheckout
+        dispatchCheckout,
+        setHotelId,
+        detail
       }}
     >
       { children }

@@ -14,7 +14,7 @@ const CHECK_IN_DEFAULT = moment();
 const CHECK_OUT_DEFAULT = moment().add(3, 'days');
 
 const Header = () => {
-  const { cityName, setCityName, dispatchSearchParams, searchParams } = usePropertiesContext();
+  const { cityName, dispatchSearchParams, searchParams } = usePropertiesContext();
   const [city, setCity] = useState('');
   const [adults1, setAdults1] = useState('');
   const [startDate, setCheckIn] = useState(CHECK_IN_DEFAULT);
