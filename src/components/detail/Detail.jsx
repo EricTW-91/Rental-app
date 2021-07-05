@@ -8,7 +8,7 @@ import './Detail.scss';
 
 const Detail = () => {
   const { id } = useParams();
-  const { searchResult, setHotelId } = usePropertiesContext();
+  const { searchResult, setHotelId, detail } = usePropertiesContext();
   const [selectedProperty, setSelectedProperty] = useState(null);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const Detail = () => {
   }, [searchResult, id]);
 
   useEffect(() => {
-    setHotelId(id);
+    id && setHotelId(id);
   }, [id]);
 
   useEffect(() => {
@@ -30,11 +30,11 @@ const Detail = () => {
   return (
     <div>
       {
-        selectedProperty && (
+        selectedProperty && detail && (
           <div className="detail-wrapper">
             <DetailTop selectedProperty={selectedProperty} />
             <div className="detail-information">
-              <DetailBody selectedProperty={selectedProperty} />
+              <DetailBody selectedProperty={selectedProperty} detail={detail} />
               <CheckoutBox selectedProperty={selectedProperty} />
             </div>
           </div>

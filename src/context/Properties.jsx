@@ -47,7 +47,7 @@ const PropertiesProvider = ({ children }) => {
   const [gotDestinationId, setGotDestinationId] = useState(true);
   const [checkout, dispatchCheckout] = useReducer(CheckoutReducer, DEFAULT_CHECKOUT);
   const [hotelId, setHotelId] = useState(null);
-  const [detail, setDetail] = useReducer(DetailReducer, null);
+  const [detail, dispatchDetail] = useReducer(DetailReducer, null);
 
   const setDestinationId = (cityId) => {
     dispatchSearchParams({
@@ -121,15 +121,26 @@ const PropertiesProvider = ({ children }) => {
         try {
           const detailOptions = {
             method: 'GET',
-            url: `${API.BASEURI}/properties/get-hotel-photos`,
-            params: {id: hotelId},
+            url: `${API.BASEURI}/properties/get-details`,
+            params: {
+              id: hotelId,
+              checkIn: searchParams.checkIn,
+              checkOut: searchParams.checkOut,
+              currency: searchParams.currency,
+              locale: searchParams.locale,
+              adults1: searchParams.adults1
+            },
             headers: {
               'x-rapidapi-key': API.KEY,
               'x-rapidapi-host': 'hotels4.p.rapidapi.com'
             }
           };
           const res = await axios.request(detailOptions);
-          console.log(res);
+          dispatchDetail({
+            type: "SET_DETAIL",
+            payload: res.data
+          });
+          console.log(res.data);
         } catch (e) {
           console.error(e);
         }
@@ -148,7 +159,8 @@ const PropertiesProvider = ({ children }) => {
         searchParams,
         checkout,
         dispatchCheckout,
-        setHotelId
+        setHotelId,
+        detail
       }}
     >
       { children }
