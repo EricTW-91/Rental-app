@@ -23,5 +23,12 @@
 	.amenities {
 		border-bottom: 1px solid rgb(200, 201, 202);
 		padding: 30px 0;
+
+		.amenity-title {
+			margin-bottom: 16px;
+		}
+	}
+	.guest-reviews {
+		padding: 30px 0;
 	}
 }

@@ -41,8 +41,8 @@ const CheckoutBox = ({ selectedProperty }) => {
   return (
     <div className="checkout-box-wrapper">
       <div className="checkout-box">
-        <div>
-          <span className='price'>${ selectedProperty.ratePlan.price.exactCurrent }</span>
+        <div className="checkout-header">
+          <span className='price'><b>$ { selectedProperty.ratePlan.price.exactCurrent }</b> / per night</span>
           <span className='starRating'>{ '⭐ ' + selectedProperty.starRating }</span>
         </div>
         <div className="input-item">

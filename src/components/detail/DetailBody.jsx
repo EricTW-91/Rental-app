@@ -14,18 +14,21 @@ const DetailBody = ({ selectedProperty, detail }) => {
         <hr className="border-line" />
       </div>
       <div className="amenities">
+        <h3 className="amenity-title">Amenity</h3>
         {
           detail.data.body.amenities[1].listItems.map(amenityList => (
             <Amenity key={amenityList.heading} amenityList={amenityList} />
           ))
         }
       </div>
-      <div className="guest-reviews">
+      {/* <div className="guest-reviews">
         <div>
           <span className='starRating'>{ '⭐ ' + selectedProperty.starRating }</span>
         </div>
+        <div className="reviews-list">
 
-      </div>
+        </div>
+      </div> */}
     </div>
   )
 }

@@ -28,7 +28,7 @@ const Detail = () => {
   },[selectedProperty])
   
   return (
-    <div>
+    <>
       {
         selectedProperty && detail && (
           <div className="detail-wrapper">
@@ -40,7 +40,7 @@ const Detail = () => {
           </div>
         )
       }
-    </div>
+    </>
   )
 }
 
