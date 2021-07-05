@@ -6,8 +6,12 @@ import moment from 'moment';
 import usePropertiesContext from '../../context/Properties';
 import './Checkout.scss';
 
-const CHECK_IN_DEFAULT = moment();
-const CHECK_OUT_DEFAULT = moment().add(3, 'days');
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import SplitForm from './SplitForm';
+
+const stripePromise = loadStripe("pk_test_51J7SMoEjRcQn4fjuN8srCjZp63y1FnrXPK2jeT0n6YZ1EcLQW8kmifDNCoiTfi7bfgnCq8YpD8ssMXS7cWSXKYML00OLwcdZjB");
+
 
 const CheckoutStripe = (props) => {
   const { checkout } = usePropertiesContext();
@@ -65,19 +69,12 @@ const CheckoutStripe = (props) => {
                 <hr/>
 
                 <h5>Pay with</h5>
-                <Form.Control style={{marginBottom: '30px'}} type='text' placeholder='Card number'></Form.Control>
-                <Row>
-                  <Col>
-                    <Form.Control type='text' placeholder='Expiration(mmyy)'></Form.Control>
-                  </Col>
-                  <Col>
-                    <Form.Control type='password' placeholder='CVV'></Form.Control>
-                  </Col>
-                </Row>
-                <Form.Control style={{marginTop: '30px'}} type='text' placeholder='Postal code'></Form.Control>
+
+                <Elements stripe={stripePromise}>
+                  <SplitForm />
+                </Elements>
                 <hr/>
 
-                <Button>Request to book</Button>
               </Container>
             </Col>
 
