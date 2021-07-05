@@ -3,6 +3,7 @@ import axios from 'axios';
 import SearchReducer from '../reducer/SearchReducer';
 import CacheReducer from '../reducer/CacheReducer';
 import moment from 'moment';
+import CheckoutReducer from '../reducer/CheckoutReducer';
 
 const PropertiesContext = createContext();
 
@@ -30,12 +31,20 @@ const DEFAULT_CACHE = {
   vancouver: '169712'
 };
 
+const DEFAULT_CHECKOUT = {
+  selectedProperty: null,
+  checkIn: CHECK_IN_DEFAULT,
+  checkOut: CHECK_OUT_DEFAULT,
+  adults: '1'
+};
+
 const PropertiesProvider = ({ children }) => {
   const [searchResult, setSearchResult] = useState(null);
   const [searchParams, dispatchSearchParams] = useReducer(SearchReducer, DEFAULT_SEARCH_PARAMS);
   const [cityName, setCityName] = useState(null);
   const [cityNameCache, dispatchCityNameCache] = useReducer(CacheReducer, DEFAULT_CACHE);
   const [gotDestinationId, setGotDestinationId] = useState(true);
+  const [checkout, dispatchCheckout] = useReducer(CheckoutReducer, DEFAULT_CHECKOUT);
   
   const setDestinationId = (cityId) => {
     dispatchSearchParams({
@@ -110,7 +119,9 @@ const PropertiesProvider = ({ children }) => {
         cityName,
         setCityName,
         dispatchSearchParams,
-        searchParams
+        searchParams,
+        checkout,
+        dispatchCheckout
       }}
     >
       { children }
