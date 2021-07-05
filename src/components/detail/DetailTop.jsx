@@ -8,6 +8,7 @@ const DetailTop = ({ selectedProperty }) => (
       <div className="top-sentence">
         <h3>{ selectedProperty.name }</h3>
         <div>
+          <span className='starRating'>{ '⭐' + selectedProperty.starRating }</span>
           <span>{ selectedProperty.address.locality }, </span>
           <span>{ selectedProperty.address.region }, </span>
           <span>{ selectedProperty.address.countryName }</span>
