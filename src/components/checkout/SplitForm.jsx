@@ -8,6 +8,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { Button, Modal } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import './SplitForm.scss'
 
 import useResponsiveFontSize from "./useResponsiveFontSize";
 
@@ -86,7 +87,7 @@ const SplitForm = () => {
         <form onSubmit={handleSubmit}>
             <label>
                 Card number
-                <CardNumberElement
+                <CardNumberElement className='cardInput'
                 options={options}
                 onReady={() => {
                     console.log("CardNumberElement [ready]");
@@ -104,7 +105,7 @@ const SplitForm = () => {
             </label><br/>
             <label>
                 Expiration date
-                <CardExpiryElement
+                <CardExpiryElement className='cardInput'
                 options={options}
                 onReady={() => {
                     console.log("CardNumberElement [ready]");
@@ -122,7 +123,7 @@ const SplitForm = () => {
             </label><br/>
             <label>
                 CVC
-                <CardCvcElement
+                <CardCvcElement className='cardInput'
                 options={options}
                 onReady={() => {
                     console.log("CardNumberElement [ready]");
@@ -138,7 +139,7 @@ const SplitForm = () => {
                 }}
                 />
             </label><br/>
-            <Button type="submit" disabled={!stripe}>
+            <Button className='paymentBt' type="submit" disabled={!stripe}>
                 Pay
             </Button>
         </form>

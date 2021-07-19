@@ -9,6 +9,7 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const CHECK_IN_DEFAULT = moment();
 const CHECK_OUT_DEFAULT = moment().add(3, 'days');
@@ -56,40 +57,90 @@ const Header = () => {
   
   return (
     <div className="header">
-      <div className="header-wrapper">
-        <div>
-          <Link to="/" className="logo">
-            Logo
-          </Link>
-        </div>
-        <div className="header-form">
-          <div className="input-item">
-            <input type="text" value={city} onChange={e => setCity(e.target.value)} placeholder="Location" className="header-input" />
-          </div>
-          <div className="input-item">
-            <DateRangePicker 
-              startDate={startDate}
-              startDateId="startDateId"
-              endDate={endDate}
-              endDateId="endDateId"
-              onDatesChange={onDatesChange}
-              focusedInput={calendarFocused}
-              onFocusChange={(calendarFocused) => setCalenderFocused(calendarFocused)} // Probably we don't need to write argument
-              showClearDates={true}
-              numberOfMonths={2}
-              isOutsideRange={() => false}
-            />
-          </div>
-          <div className="input-item">
-            <input type="text" value={adults1} onChange={e => setAdults1(e.target.value)} placeholder="Number of people" className="header-input" id="number-of-people" />
-          </div>
-          <Button variant="primary" onClick={onSubmit} className="primary-button">Search</Button>
-        </div>
-        <div>
-          <FontAwesomeIcon icon={faUserCircle} className="icon-user-circle" />
-        </div>
-      </div>
+      <Container fluid>
+        <Row>
+          <Col xs={12} md={2} className='my-auto'>
+            <Link to="/" className="logo">Logo</Link>
+          </Col>
+          <Col xs={12} md={10}>
+            <Row>
+              <Col xs={12} md={4} xl={3} className='my-2'>
+                <input type="text" value={city} onChange={e => setCity(e.target.value)} placeholder="Location" className="header-input" />
+              </Col>
+              <Col xs={12} md={8} xl={4} className='my-2'>
+                <DateRangePicker
+                  startDate={startDate}
+                  startDateId="startDateId"
+                  endDate={endDate}
+                  endDateId="endDateId"
+                  onDatesChange={onDatesChange}
+                  focusedInput={calendarFocused}
+                  onFocusChange={(calendarFocused) => setCalenderFocused(calendarFocused)} // Probably we don't need to write argument
+                  showClearDates={true}
+                  numberOfMonths={2}
+                  isOutsideRange={() => false}
+                />
+              </Col>
+              <Col xs={6} md={6} xl={3} className='my-2'>
+                <input type="text" value={adults1} onChange={e => setAdults1(e.target.value)} placeholder="Number of people" className="header-input" id="number-of-people" />
+              </Col>
+              <Col xs={6} md={6} xl={2} className='my-2'>
+                <Button variant="primary" onClick={onSubmit} className="primary-button">Search</Button>
+              </Col>
+
+            </Row>
+          </Col>
+          {/* <Col xs={12} md={10} xl={10}>
+            <FontAwesomeIcon icon={faUserCircle} className="icon-user-circle" />
+          </Col> */}
+        </Row>
+      </Container>
+
     </div>
+  
+
+
+
+
+
+
+
+
+    // <div className="header">
+    //   <div className="header-wrapper">
+    //     <div>
+    //       <Link to="/" className="logo">
+    //         Logo
+    //       </Link>
+    //     </div>
+    //     <div className="header-form">
+    //       <div className="input-item">
+    //         <input type="text" value={city} onChange={e => setCity(e.target.value)} placeholder="Location" className="header-input" />
+    //       </div>
+    //       <div className="input-item">
+    //         <DateRangePicker 
+    //           startDate={startDate}
+    //           startDateId="startDateId"
+    //           endDate={endDate}
+    //           endDateId="endDateId"
+    //           onDatesChange={onDatesChange}
+    //           focusedInput={calendarFocused}
+    //           onFocusChange={(calendarFocused) => setCalenderFocused(calendarFocused)} // Probably we don't need to write argument
+    //           showClearDates={true}
+    //           numberOfMonths={2}
+    //           isOutsideRange={() => false}
+    //         />
+    //       </div>
+    //       <div className="input-item">
+    //         <input type="text" value={adults1} onChange={e => setAdults1(e.target.value)} placeholder="Number of people" className="header-input" id="number-of-people" />
+    //       </div>
+    //       <Button variant="primary" onClick={onSubmit} className="primary-button">Search</Button>
+    //     </div>
+    //     <div>
+    //       <FontAwesomeIcon icon={faUserCircle} className="icon-user-circle" />
+    //     </div>
+    //   </div>
+    // </div>
   )
 }
 

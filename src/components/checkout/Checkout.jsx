@@ -27,7 +27,7 @@ const CheckoutStripe = (props) => {
   }
 
   const nightsCheck = (start, end) => {
-    return (Math.ceil((end._d.getTime()-start._d.getTime()) / (1000*3600*24)))
+    return (Math.round((end._d.getTime()-start._d.getTime()) / (1000*3600*24)))
   }
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const CheckoutStripe = (props) => {
                   isOutsideRange={() => false}
                 />
                 <h6>Guests</h6>
-                <Form.Control type='number' value={adults} min={1} max={2} onChange={(e)=> setAdults(e.target.value)}></Form.Control>
+                <Form.Control className='guestInput' type='number' value={adults} min={1} max={2} onChange={(e)=> setAdults(e.target.value)}></Form.Control>
                 <hr/>
 
                 <h5>Pay with</h5>

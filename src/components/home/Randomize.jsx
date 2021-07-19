@@ -45,9 +45,6 @@ const Randomize = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     width: '90vw',
-                    // gridTemplateColumns: 'repeat(3, 1fr)',
-                    // gridGap: '20px',
-                    // placeItems: 'center',
                     margin: '10vh auto'
 
                 }}
